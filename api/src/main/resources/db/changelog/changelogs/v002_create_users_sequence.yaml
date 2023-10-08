@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: v002_1_create_users_sequence
+      context: ddl
+      author: Joao Vitor de Oliveira Santos
+      changes:
+        - createSequence:
+            schemaName: voting_app
+            sequenceName: sq_users
+            startValue: 1
+            incrementBy: 1
+  - changeSet:
+      id: v002_2_grant_permissions
+      context: grant
+      author: Joao Vitor de Oliveira Santos
+      changes:
+        - sql:
+            sql: grant usage, select on voting_app.sq_users to d_voting_app;
