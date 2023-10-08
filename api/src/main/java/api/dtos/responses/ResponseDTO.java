@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Response<C> {
+public class ResponseDTO<C> {
     private final C content;
     private final List<String> errors;
 }
