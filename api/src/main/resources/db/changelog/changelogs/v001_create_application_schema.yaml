@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: v001_1_create_application_schema
+      context: ddl
+      author: Joao Vitor de Oliveira Santos
+      changes:
+        - sql:
+            sql: create schema voting_app;
