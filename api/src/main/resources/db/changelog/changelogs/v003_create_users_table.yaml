@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: v003_1_create_users_table
+      context: ddl
+      author: Joao Vitor de Oliveira Santos
+      changes:
+        - createTable:
+            schemaName: voting_app
+            tableName: tb_users
+            columns:
+              - column:
+                  name: id
+                  type: numeric(10, 0)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user
+              - column:
+                  name: email
+                  type: varchar2(80)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: uq_user_email
+                    nullable: false
+                    notNullConstraintName: nn_user_email
+              - column:
+                  name: password
+                  type: varchar2(80)
+                  constraints:
+                    nullable: false
+                    notNullConstraintName: nn_user_password
+  - changeSet:
+      id: v003_2_grant_permissions
+      context: grant
+      author: Joao Vitor de Oliveira Santos
+      changes:
+        - sql:
+            sql: grant select, insert, update, delete on voting_app.tb_users to d_voting_app;
