@@ -1,5 +1,6 @@
 package api.dtos.requests;
 
+import api.models.User;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -15,4 +16,12 @@ public class UserRegistrationRequestDTO {
     @NotNull(message = "Informe uma senha.")
     @Size(min = 8, max = 80, message = "A senha deve conter entre {min} e {max} caracteres.")
     private final String password;
+
+    public User convert() {
+        return User
+                .builder()
+                .email(this.getEmail())
+                .password(this.getPassword())
+                .build();
+    }
 }
