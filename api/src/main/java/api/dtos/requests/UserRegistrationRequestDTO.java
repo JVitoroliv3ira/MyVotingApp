@@ -1,6 +1,7 @@
 package api.dtos.requests;
 
 import api.models.User;
+import api.utils.CryptographyUtil;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -21,7 +22,7 @@ public class UserRegistrationRequestDTO {
         return User
                 .builder()
                 .email(this.getEmail())
-                .password(this.getPassword())
+                .password(CryptographyUtil.encodeValue(this.getPassword()))
                 .build();
     }
 }
