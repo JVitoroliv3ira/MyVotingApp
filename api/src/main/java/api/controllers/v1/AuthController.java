@@ -1,5 +1,6 @@
 package api.controllers.v1;
 
+import api.dtos.DetailsDTO;
 import api.dtos.requests.UserAuthenticationRequestDTO;
 import api.dtos.requests.UserRegistrationRequestDTO;
 import api.dtos.responses.AuthenticatedUserResponseDTO;
@@ -26,13 +27,14 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity<ResponseDTO<User>> register(@Valid @RequestBody UserRegistrationRequestDTO request) {
+    public ResponseEntity<ResponseDTO<AuthenticatedUserResponseDTO>> register(@Valid @RequestBody UserRegistrationRequestDTO request) {
         this.userService.validateEmailUniqueness(request.getEmail());
         User createdUser = this.userService.create(request.convert());
-
+        UserDetails details = new DetailsDTO(createdUser);
+        String token = this.jwtService.generateToken(details);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDTO<>(createdUser, null));
+                .body(new ResponseDTO<>(new AuthenticatedUserResponseDTO(details, token), null));
     }
 
     @PostMapping(path = "/login")
