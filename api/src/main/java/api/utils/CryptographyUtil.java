@@ -8,4 +8,8 @@ public class CryptographyUtil {
     public static String encodeValue(String value) {
         return encoder.encode(value);
     }
+
+    public static Boolean valuesMatches(String rawValue, String encodedValue) {
+        return encoder.matches(rawValue, encodedValue);
+    }
 }
